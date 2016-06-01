@@ -1,7 +1,6 @@
 #!/usr/bin/env node
 
 var Validate = require('git-validate');
-Validate.installScript('', '')
 Validate.installScript('validate', 'npm ls')
 Validate.installScript('eraseOnly', 'node node_modules/precommit-hook/bin/onlyEraser.js');
 Validate.configureHook('pre-commit', ['eraseOnly']);
