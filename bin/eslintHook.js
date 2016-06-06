@@ -1,4 +1,4 @@
-var pattern = 'git diff-index --name-only HEAD|grep "\\.js$"'
+var pattern = 'git diff-index --name-only HEAD|grep "\\.js$"|grep -v "migrate*"'
 var exec = require('child_process').exec;
 exec(pattern, function (error, stdout, stderr) {
     var files =  stdout.split('\n')
