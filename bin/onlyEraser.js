@@ -1,5 +1,6 @@
 var fs = require('fs')
-var testDir = process.env.PWD + '/test';
+var path = require('path')
+var testDir = path.resolve(__dirname, 'test');
 var walk = function(dir) {
     var results = []
     var list = fs.readdirSync(dir)
