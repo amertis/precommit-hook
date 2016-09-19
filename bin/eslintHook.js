@@ -3,25 +3,23 @@ var os = require('os')
 var cmd = 'git'
 
 var allArgs = ['diff-index', '--name-only','HEAD']
+var options ={};
 if (os.platform() === 'win32') {
     cmd = process.env.comspec || 'cmd.exe'
-    allArgs = ['/s', '/c', '"', allArgs[0],'"']
+    allArgs = ['/s', '/c', '"', "git diff-index --name-only HEAD",'"']
+    options ={encoding: 'utf-8', windowsVerbatimArguments: true}
 }
 
-var out = spawnSync(cmd, allArgs)
+var out = spawnSync(cmd, allArgs, options)
 if(out.error) {
     console.log(out.error)
     process.exit(1)
 }
-var files =  out.output.map(function (item) {
-    if(!item) {
-        return null
-    }
-    if (item.toString('utf-8')) {
-        return item.toString('utf-8').replace('\n', '')
-    }
-    return null
-})
+if(out.stderr) {
+    console.log(out.stderr.toString('utf-8'))
+    process.exit(1)
+}
+var files =  out.stdout.split("\n")
 files = files.filter(function (f) {
     return f!=null
 })
