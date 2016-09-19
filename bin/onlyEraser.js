@@ -1,5 +1,6 @@
 var fs = require('fs')
-var testDir = process.env.PWD + '/test';
+var path = require('path')
+var testDir = path.resolve(process.cwd(), 'test');
 var walk = function(dir) {
     var results = []
     var list = fs.readdirSync(dir)
@@ -12,9 +13,7 @@ var walk = function(dir) {
         else {
             if(file.indexOf('.js') != -1)
                 results.push(file)
-
         }
-
     })
     return results
 }
